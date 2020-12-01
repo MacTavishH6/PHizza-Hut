@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 class TransactionHeader extends Model
 {
     protected $table = "trtransactionheader";
-    protected $timestamps = false;
+    public $timestamps = false;
 }
