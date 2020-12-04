@@ -17,7 +17,7 @@ class CreateTrTransactionHeaderTable extends Migration
             $table->id();
             $table->string('CustomerID');
             $table->string('TotalPrize');
-            $table->Date('TransactionDate');
+            $table->datetime('TransactionDate');
             $table->string('AuditUsername');
             $table->datetime('AuditTime');
             $table->char('AuditActivity');
