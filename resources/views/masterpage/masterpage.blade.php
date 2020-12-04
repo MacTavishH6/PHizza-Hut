@@ -20,6 +20,7 @@
         body{
             margin: 0;
             padding: 0;
+            background-color:#f7f7f7;
         }
         .navbar{
             background-color: #f7344b;
@@ -57,7 +58,7 @@
     <!-- navbar -->
     <nav class="navbar navbar-expand-lg d-flex flex-row justify-content-between">
         <div class="container">
-            <a href="#" class="navbar-brand">
+            <a href="/" class="navbar-brand">
                 <img src="{{asset('storage/img/PHizzaHutLogo.jpg')}}" alt="PHizzaHutLogo.jpg" width="30" height="30" class="d-inlign-block align-top">
                 PHizza Hut
             </a>

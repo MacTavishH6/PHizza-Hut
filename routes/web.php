@@ -13,6 +13,26 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', 'IndexController@indexView');
+
+Route::get('/detail/{id}', 'PizzaController@pizzaDetail');
+
+Route::get('/add', 'PizzaController@addView');
+
+Route::get('/delete/{id}', 'PizzaController@deleteView');
+
+Route::get('/update/{id}', 'PizzaController@pizzaUpdateView');
+
+Route::get('/history', 'TransactionController@viewTransaction');
+
+Route::get('/history/detail', function () {
+    return view('master/Transaction/Detail');
 });
+
+Route::post('/addPizza', 'PizzaController@addPizza');
+
+Route::post('/update/pizza/{id}', 'PizzaController@pizzaUpdate');
+
+Route::post('/delete/pizza/{id}', 'PizzaController@delete');
+
+Route::get('/search', 'IndexController@indexSearch');
