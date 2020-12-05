@@ -14,10 +14,10 @@ class CreateTrTransactionHeaderTable extends Migration
     public function up()
     {
         Schema::create('TrTransactionHeader', function (Blueprint $table) {
-            $table->increments('HTransactionID');
-            $table->integer('UserID');
-            $table->double('TotalPrice');
-            $table->Date('TransactionDate');
+            $table->id();
+            $table->string('CustomerID');
+            $table->string('TotalPrize');
+            $table->datetime('TransactionDate');
             $table->string('AuditUsername');
             $table->datetime('AuditTime');
             $table->char('AuditActivity');
