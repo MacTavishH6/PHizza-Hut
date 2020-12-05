@@ -16,3 +16,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/ViewAllUser','UserController@GetListUserDetail');
+Route::get('/ViewChart/{UserID}','TransactionController@GetChartList');
+Route::post('/UpdateChartQty/{UserID}/{CartID}','TransactionController@UpdateQty');
+Route::get('/DeleteCart/{UserID}/{CartID}','TransactionController@DeleteCart');
+Route::get('/AddChart/{UserID}/{PizzaID}/{PizzaQty}','TransactionController@AddChart');
+Route::get('/CheckOutPizza/{UserID}','TransactionController@SaveTransactionCheckOut');

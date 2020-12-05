@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMsStaffTable extends Migration
+class CreateTrPizzacartTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,14 @@ class CreateMsStaffTable extends Migration
      */
     public function up()
     {
-        Schema::create('MsStaff', function (Blueprint $table) {
-            $table->string('StaffID');
-            $table->string('StaffName',255);
-            $table->string('Password',20);
-            $table->string('Address',255);
-            $table->string('PhoneNumber');
-            $table->string('Gender');
+        Schema::create('tr_pizzacart', function (Blueprint $table) {
+            $table->increments('CartID');
+            $table->integer('UserID');
+            $table->integer('PizzaID');
+            $table->integer('PizzaQty');
+            $table->double('TotalPrice');
             $table->string('AuditUsername');
-            $table->datetime('AuditTime');
+            $table->dateTime('AuditTime');
             $table->char('AuditActivity');
         });
     }
@@ -33,6 +32,6 @@ class CreateMsStaffTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('_ms_staff');
+        Schema::dropIfExists('tr_pizzacart');
     }
 }
