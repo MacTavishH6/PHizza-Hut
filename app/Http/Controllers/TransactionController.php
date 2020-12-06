@@ -47,18 +47,18 @@ class TransactionController extends Controller
         TransactionHeader::insert(array(
             'UserID' => $UserID,
             'TotalPrice' =>0,
-            'TransactionDate' => date("Y-m-d"),
+            'TransactionDate' => Carbon::now()->toDateTimeString(),
             'AuditUsername' => $User->Username,
             'AuditTime' => Carbon::now()->toDateTimeString(),
             'AuditActivity' => 'I'
         ));
 
         $ChartList = PizzaCart::where('UserID',$UserID)->where('AuditActivity','<>','D')->get();
-        $CurrentHeaderTransaction = TransactionHeader::where('UserID',$UserID)->orderBy('HTransactionID','desc')->first();
+        $CurrentHeaderTransaction = TransactionHeader::where('UserID',$UserID)->orderBy('id','desc')->first();
         $TotalPrice = 0;
         foreach($ChartList as $Data){
             TransactionDetail::insert(array(
-                'HTransactionID' => $CurrentHeaderTransaction->HTransactionID,
+                'HTransactionID' => $CurrentHeaderTransaction->id,
                 'PizzaID' => $Data->PizzaID,
                 'SubTotal' => $Data->TotalPrice,
                 'Qty' => $Data->PizzaQty,
@@ -71,14 +71,16 @@ class TransactionController extends Controller
             PizzaCart::where('CartID',$Data->CartID)->update(array('AuditTime'=>Carbon::now()->toDateTimeString()));
             PizzaCart::where('CartID',$Data->CartID)->update(array('AuditActivity'=>'D'));
         }
-       TransactionHeader::where('HTransactionID',$CurrentHeaderTransaction->HTransactionID)->update(array('TotalPrice'=>$TotalPrice));
+       TransactionHeader::where('id',$CurrentHeaderTransaction->id)->update(array('TotalPrice'=>$TotalPrice));
 
         $url = "../ViewChart/";
         $url .=$UserID;
         return redirect($url);
     }
 
-    public function AddChart($UserID,$PizzaID,$PizzaQty){
+    public function AddCart($UserID,Request $request){
+        $PizzaID = $request->HfPizzaID;
+        $PizzaQty = $request->AddCartPizzaQty;
         $Pizza = Pizza::where('id',$PizzaID)->first(); 
         $User = Users::where('UserID',$UserID)->first();
         $Exists = PizzaCart::where('PizzaID',$PizzaID)->where('UserID',$UserID)->where('AuditActivity','<>','D')->first();

@@ -58,10 +58,10 @@ class PizzaController extends Controller
         }
     }
 
-    public function pizzaDetail($id){
+    public function pizzaDetail($UserID,$id){
         $pizza = Pizza::find($id);
 
-        return view('master/Pizza/Detail',['pizza'=>$pizza]);
+        return view('master/Pizza/Detail',compact('pizza','UserID'));
     }
 
     public function pizzaUpdateView($id){
