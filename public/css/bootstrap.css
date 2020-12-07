@@ -10035,4 +10035,18 @@ a.text-dark:hover, a.text-dark:focus {
     border-color: #dee2e6;
   }
 }
+
+
+
+.UserGrid User-content {
+  padding: 20px 10px;
+  text-align: center
+}
+
+.UserGrid.title {
+  font-size: 17px;
+  margin: 0 0 7px
+  
+}
+
 /*# sourceMappingURL=bootstrap.css.map */
