@@ -62,23 +62,25 @@
                 <img src="{{asset('storage/img/PHizzaHutLogo.jpg')}}" alt="PHizzaHutLogo.jpg" width="30" height="30" class="d-inlign-block align-top">
                 PHizza Hut
             </a>
+            @if(!\Illuminate\Support\Facades\Auth::check())
             <!----------------- for guest ----------------->
             <!------------------------------------------------>
                 <ul class="navbar-nav d-flex flex-row">
                     <li class="nav-item mx-2">
-                        <a class="nav-link" href="#">Login</a>
+                        <a class="nav-link" href="/login">Login</a>
                     </li>
                     <li class="nav-item">
                         <span class="nav-link">|</span>
                     </li>
                     <li class="nav-item mx-2">
-                        <a class="nav-link"  href="#">Register</a>
+                        <a class="nav-link"  href="/register">Register</a>
                     </li>
                 </ul>
             <!------------------------------------------------->
-
+                
+            @else
             <!----------------- for customer and admin ----------------->
-            <!-------------------------------------------------
+
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -86,7 +88,7 @@
                 <ul class="navbar-nav d-flex flex-row ml-auto">
                     <li class="nav-item mx-2">
                         <a class="nav-link" href="#">View Transaction History</a>
-                    --> <!-- if admin --> <!--
+                         <!-- if admin --> 
                         <a class="nav-link" href="#">View All User Transaction</a>
                     </li>
                     <li class="nav-item">
@@ -94,7 +96,7 @@
                     </li>
                     <li class="nav-item mx-2">
                         <a class="nav-link"  href="#">View Cart</a>
-                        --> <!-- if admin --> <!--
+                         <!-- if admin -->
                         <a class="nav-link"  href="#">View All User</a>
                     </li>
                     <li class="nav-item">
@@ -102,10 +104,7 @@
                     </li>
                     <li class="nav-item dropdown mx-2">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        --> <!-- Username --> <!--
-                            John
-                            --> <!-- if admin --> <!--
-                            Admin
+                            
                         </a>
                         <ul class="dropdown-menu dropdown-menu-right mt-1" aria-labelledby="navbarDropdownMenuLink">
                             <li class="dropdown-item">
@@ -121,7 +120,7 @@
                     </li>
                 </ul>
             </div>
-            ----------------------------------------------------->
+            @endif
         </div>
     </nav>
 

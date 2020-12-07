@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use App\Users;
 use Validator;
 use Carbon\Carbon;
+use Auth;
 
 class UserController extends Controller
 {
@@ -47,11 +48,25 @@ class UserController extends Controller
                 'AuditTime' => Carbon::now()->toDateTimeString(),
                 'AuditActivity' => "I"
             ));
-            return redirect('/Register')->with('status',"Register successfully!");
+            return redirect('/login')->with('status',"Register successfully!");
         }
         catch(Exception $e){
-            return redirect('/Register')->with('failed',"Error occured when register");
+            return redirect('/login')->with('failed',"Error occured when register");
         }
 
+    }
+
+    public function Login(Request $request){
+
+        $credential = $request->only('email','password');
+        Auth::attempt($credential);
+        
+        return redirect('/');
+    }
+
+    public function LogOut(){
+        Auth::logout();
+
+        return redirect('/login');
     }
 }

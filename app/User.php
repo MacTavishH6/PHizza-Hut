@@ -9,7 +9,7 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
 {
     use Notifiable;
-
+    public $timestamps = false;
     /**
      * The attributes that are mass assignable.
      *
@@ -36,4 +36,6 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    protected $table = 'msusers';
 }
