@@ -116,7 +116,7 @@ class TransactionController extends Controller
         return view('master/Transaction/History',['transactions'=>$transactions]);
     }
 
-    public function viewTransactionDetail($UserID, $TranID){
+    public function viewTransactionDetail($TranID){
         $transactions = TransactionDetail::where([['HTransactionID',$TranID],['AuditActivity','<>','D']])->get();
 
         return view('master/Transaction/Detail',['transactions'=>$transactions]);

@@ -45,7 +45,8 @@ class PizzaController extends Controller
         $validated = $this->validateRequest($request);
         if ($validated->fails()) return redirect()->back()->withInput($request->all())->withErrors($validated->errors());
         $imageName = $request->file('photo')->getClientOriginalName();
-        $request->file('photo')->move(public_path('storage/img'), $imageName);
+        Storage::disk('public')->putFileAs('img', $request->file('photo'), $imageName);
+        Artisan::call('storage:link', [] );
         $UserID = 'Wira';
         try{
             $pizza = new Pizza;
@@ -75,7 +76,7 @@ class PizzaController extends Controller
         $validated = $this->validateRequest($request);
         if ($validated->fails()) return redirect()->back()->with('pizza',$pizza->all())->withErrors($validated->errors());
         $imageName = $request->file('photo')->getClientOriginalName();
-        Storage::disk('public')->put('img/'.$imageName, $request->file('photo'), 'public');
+        Storage::disk('public')->putFileAs('img', $request->file('photo'), $imageName);
         Artisan::call('storage:link', [] );
         $UserID = 'Wira';
         try{

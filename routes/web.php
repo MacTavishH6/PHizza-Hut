@@ -23,12 +23,6 @@ Route::get('/delete/{id}', 'PizzaController@deleteView');
 
 Route::get('/update/{id}', 'PizzaController@pizzaUpdateView');
 
-Route::get('/history', 'TransactionController@viewTransaction');
-
-Route::get('/history/detail', function () {
-    return view('master/Transaction/Detail');
-});
-
 Route::get('/Register', function () {
     return view('master/Register');
 });
@@ -39,8 +33,8 @@ Route::post('/UpdateChartQty/{UserID}/{CartID}','TransactionController@UpdateQty
 Route::get('/DeleteCart/{UserID}/{CartID}','TransactionController@DeleteCart');
 Route::post('/AddCart/{UserID}','TransactionController@AddCart');
 Route::get('/CheckOutPizza/{UserID}','TransactionController@SaveTransactionCheckOut');
-// Route::get('/ViewTransactionHistory/{UserID}','TransactionController@GetTransactionHistory');
-// Route::get('/ViewTransactionHistoryDetail/{HTransactionID}','TransactionController@GetTransactionHistoryDetail');
+Route::get('/history/{UserID}','TransactionController@viewTransaction');
+Route::get('/history/detail/{HTransactionID}','TransactionController@viewTransactionDetail');
 Route::post('/SubmitRegistration','UserController@Register');
 
 
