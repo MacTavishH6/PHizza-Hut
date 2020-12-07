@@ -33,7 +33,9 @@
                 <input type="search" class="form-control search-bar" placeholder="Search Pizza" aria-label="Search Pizza" name="query" value="@if(isset($query)){{$query}}@endif">
                 <button class="btn btn-primary my-2 my-sm-0 mx-1 px-4" type="submit" >Search</button>
             </form>
-            <button class="btn btn-dark mt-2" onclick="window.location.href = 'add'">Add Pizza</button>
+            @if(Auth::check() && (Auth::user()->isAdmin == 1 || Auth::user()->isAdmin == 2))
+                <button class="btn btn-dark mt-2" onclick="window.location.href = 'add'">Add Pizza</button>
+            @endif
             @if(session('pizzaDeleted'))
                 <div class="alert alert-success mt-2" role="alert">
                     <button type="button" class="close" data-dismiss="alert">×</button>
@@ -41,7 +43,7 @@
                 </div>
             @endif
             @if ($pizzas->count() < 1)
-                <div class="col text-center">
+                <div class="col text-center mt-3">
                     <h1>No Pizza..</h1>
                 </div>
             @else
@@ -54,13 +56,20 @@
                                     <label class="pizza_label">{{$pizza->PizzaName}}</label>
                                     <label class="pizza_price">Rp. {{$pizza->Price}}</label>
                                 </div>
-                                {{-- <div class="customer_button mx-auto mb-3">
-                                    <button class="btn btn-outline-info" onclick="window.location.href = 'detail/{{$pizza->id}}'">View Detail</button>
-                                </div> --}}
-                                <div class="admin_buttons mx-auto mb-3">
-                                    <button class="btn btn-primary mr-5" onclick="window.location.href = 'update/{{$pizza->id}}'">Update Pizza</button>
-                                    <button class="btn btn-danger ml-4" onclick="window.location.href = 'delete/{{$pizza->id}}'">Delete Pizza</button>
+                                <div class="customer_button mx-auto mb-3">
+                                    @if (Auth::check() && (Auth::user()->isAdmin != 1 && Auth::user()->isAdmin != 2))
+                                        <button class="btn btn-outline-info" onclick="window.location.href = 'detail/{{Auth::user()->UserID}}/{{$pizza->id}}'">View Detail</button>
+                                    @elseif(!Auth::check())
+                                    {{-- {{Auth::check()}} --}}
+                                        <button class="btn btn-outline-info" onclick="window.location.href = 'detail/{{$pizza->id}}'">View Detail</button>
+                                    @endif
                                 </div>
+                                @if(Auth::check() && (Auth::user()->isAdmin == 1 || Auth::user()->isAdmin == 2))
+                                    <div class="admin_buttons mx-auto mb-3">
+                                        <button class="btn btn-primary mr-5" onclick="window.location.href = 'update/{{$pizza->id}}'">Update Pizza</button>
+                                        <button class="btn btn-danger ml-4" onclick="window.location.href = 'delete/{{$pizza->id}}'">Delete Pizza</button>
+                                    </div>
+                                @endif
                             </div>
                         @endforeach
                     </div>

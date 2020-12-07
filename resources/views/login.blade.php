@@ -1,5 +1,7 @@
 @extends('masterpage/masterpage')
 
+@section('title','PHizza Hut | Login')
+
 @section('content_placeholder')
 <div class="container" style=";width: 50%;margin-top: 50px">
     <div class="content" style="height: 100%;margin-top: 10px ">
@@ -20,52 +22,43 @@
             @endif
 
         @if(session('failed'))
-                <div class="alert alert-danger" role="alert">
+                <div class="alert alert-danger mt-2" role="alert">
                     <button type="button" class="close" data-dismiss="alert">×</button>
                     {{ session('failed') }}
                 </div>
             @elseif(session('status'))
-                <div class="alert alert-success" role="alert">
+                <div class="alert alert-success mt-2" role="alert">
                     <button type="button" class="close" data-dismiss="alert">×</button>
                     {{ session('status') }}
                 </div>
             @endif
 
-        <div style="margin-left: 200px">
+        <div style="">
             <form action="/Auth" method="post" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 <div class="row form-group mt-4">
-                    <div class="col-3" style="text-align: right">E-Mail Address :</div>
+                    <div class="col-5" style="text-align: right">E-Mail Address :</div>
                     <div class="col-6"><input type="email" class="form-control" name="email" id="email" value="{{old('email')}}"></div>
                 </div>
                 <div class="row form-group mt-4">
-                    <div class="col-3" style="text-align: right">Password :</div>
+                    <div class="col-5" style="text-align: right">Password :</div>
                     <div class="col-6"><input type="password" class="form-control" name="password" id="password" value="{{old('password')}}"></div>
                 </div>
-                <div class="row form-group mt-4">
-                    <div class="col-12" style="margin-left: 230px"><input type="checkbox" style="width: 20px;height: 20px;" class="form-control" name="rememberMe" id="rememberMe" value="{{old('rememberMe')}}">
-                        <span>Remember Me</span>
+                <div class="row form-check mt-4">
+                    <div class="col form-group" style="margin-left: 270px">
+                        <input type="checkbox" style="" class="form-check-input" name="rememberMe" id="rememberMe" value="{{old('rememberMe')}}" id="exampleCheck1">
+                        <label class="form-check-label" for="exampleCheck1">Remember Me</label>
                     </div>
-                    
                 </div>
-                <br>
                 <div class="row mb-3">
-                    <div class="col" style="margin-left: 225px">
+                    <div class="col text-center" style="margin-left: 120px">
                         <input type="submit" name="submit" class="btn btn-primary" value="Login">
+                        <a href="#">Forgot Your Password ?</a>
                     </div>
                 </div>
-
-                
             </form>
         </div>
-
-         
-
         </div>
-
     </div>
-
-    
-
 </div>
 @endsection

@@ -62,7 +62,7 @@
                 <img src="{{asset('storage/img/PHizzaHutLogo.jpg')}}" alt="PHizzaHutLogo.jpg" width="30" height="30" class="d-inlign-block align-top">
                 PHizza Hut
             </a>
-            @if(!\Illuminate\Support\Facades\Auth::check())
+            @if(!Auth::check())
             <!----------------- for guest ----------------->
             <!------------------------------------------------>
                 <ul class="navbar-nav d-flex flex-row">
@@ -87,35 +87,46 @@
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav d-flex flex-row ml-auto">
                     <li class="nav-item mx-2">
-                        <a class="nav-link" href="#">View Transaction History</a>
-                         <!-- if admin --> 
-                        <a class="nav-link" href="#">View All User Transaction</a>
+                        @if (Auth::user()->isAdmin == 0)
+                            <a class="nav-link" href="/history/{{Auth::user()->UserID}}">View Transaction History</a>
+                        @else
+                            <!-- if admin --> 
+                            <a class="nav-link" href="/ViewAllUserTransaction">View All User Transaction</a>
+                        @endif
                     </li>
                     <li class="nav-item">
                         <span class="nav-link">|</span>
                     </li>
                     <li class="nav-item mx-2">
-                        <a class="nav-link"  href="#">View Cart</a>
-                         <!-- if admin -->
-                        <a class="nav-link"  href="#">View All User</a>
+                        @if (Auth::user()->isAdmin == 0)
+                            <a class="nav-link"  href="/ViewChart/{{Auth::user()->UserID}}">View Cart</a>
+                        @elseif(Auth::user()->isAdmin == 1 || Auth::user()->isAdmin == 2)
+                            <!-- if admin -->
+                            <a class="nav-link"  href="/ViewAllUser">View All User</a>
+                        @endif
                     </li>
                     <li class="nav-item">
                         <span class="nav-link">|</span>
                     </li>
                     <li class="nav-item dropdown mx-2">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            
+                            @if (Auth::check())
+                                {{Auth::user()->Username}}
+                            @endif
                         </a>
                         <ul class="dropdown-menu dropdown-menu-right mt-1" aria-labelledby="navbarDropdownMenuLink">
                             <li class="dropdown-item">
+                                @if (Auth::check())
+                                    <a class="nav-link" href="/logout">Logout</a>
+                                @endif
+                                
+                            </li>
+                            {{-- <li class="dropdown-item">
                                 <a class="nav-link" href="#">Action</a>
                             </li>
                             <li class="dropdown-item">
                                 <a class="nav-link" href="#">Action</a>
-                            </li>
-                            <li class="dropdown-item">
-                                <a class="nav-link" href="#">Action</a>
-                            </li>
+                            </li> --}}
                         </ul>
                     </li>
                 </ul>

@@ -1,6 +1,6 @@
 @extends('masterpage/masterpage')
 
-@section('title','Add Pizza')
+@section('title','Add New Pizza')
 
 @section('content_placeholder')
     <div class="container bg-white px-5 mt-4 pb-3">

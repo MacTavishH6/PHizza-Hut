@@ -1,5 +1,7 @@
 @extends('masterpage/masterpage')
 
+@section('title','{{Auth::user()->Username}} Transaction')
+
 @section('content_placeholder')
 <div class="container mt-4 bg-white">
     @foreach ($transactions as $transaction)

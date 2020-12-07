@@ -9,14 +9,14 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
 {
     use Notifiable;
-    public $timestamps = false;
+    
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'email', 'password',
     ];
 
     /**
@@ -37,5 +37,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    /** 
+    * The database table primery key used by the model. 
+    *
+    * @var string
+    */ 
+    protected $primaryKey = 'UserID';
+
     protected $table = 'msusers';
+    public $timestamps = false;
 }

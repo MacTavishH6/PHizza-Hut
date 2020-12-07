@@ -1,7 +1,9 @@
 @extends('masterpage/masterpage')
 
+@section('title','{{Auth::user()->Username}} Cart')
+
 @section('content_placeholder')
-<div class="container" style=";width: 50%;margin-top: 50px">
+<div class="container" style=";width: 75%;margin-top: 50px">
     <div class="content" style="height: 100%;margin-top: 10px ">
         @if(count($ChartList) < 1 )
           <h1 class="text-center">Chart is empty, please order!!</h1>
@@ -12,7 +14,7 @@
             <div class="col-sm-4">
                 <img width="280px" height="280px" src="{{asset('storage/img/'.$Data->Pizza->ImagePath)}}" style="padding: 50px 10px 10px 40px">
             </div>
-            <div class="col-sm-8">
+            <div class="col-sm-7">
             <h2 style="margin-top:30px ">{{$Data->Pizza->PizzaName}}</h2>
             <p>Rp. {{$Data->Pizza->Price}}</p>
             <p>Quantity : {{$Data->PizzaQty}}</p>
@@ -53,7 +55,7 @@
         </div>
         @endforeach
         @if(count($ChartList) > 0)
-        <div style="margin-left: 460px">
+        <div style="margin-left: 520px">
         <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#CheckOutModal" style="margin-bottom: 40px;width: 160px;color: white;">Checkout</button>
         {{-- Modal Start Here --}}
         <div class="modal" id="CheckOutModal" tabindex="-1" role="dialog">

@@ -120,13 +120,13 @@ class TransactionController extends Controller
     }
 
     public function GetTransactionHistory($UserID){
-        $TransactionList = TransactionHeader::where('UserID',$UserID)->get();
+        $TransactionList = TransactionHeader::where([['UserID',$UserID],['AuditActivity','<>','D']])->get();
 
         return View('master/Transaction/TransactionHistory',['TransactionList'=>$TransactionList]);
     }
 
     public function viewTransaction($UserID){
-        $transactions = TransactionHeader::where('UserID',$UserID)->get();
+        $transactions = TransactionHeader::where([['UserID',$UserID],['AuditActivity','<>','D']])->get();
 
         return view('master/Transaction/History',['transactions'=>$transactions]);
     }
@@ -135,6 +135,11 @@ class TransactionController extends Controller
         $transactions = TransactionDetail::where([['HTransactionID',$TranID],['AuditActivity','<>','D']])->get();
 
         return view('master/Transaction/Detail',['transactions'=>$transactions]);
+    }
+
+    public function viewAllUserTransaction(){
+        $transactions = TransactionHeader::where([['AuditActivity','<>','D']])->get();
+        return view('master/Transaction/ViewAllTransaction',['transactions'=>$transactions]);
     }
 }
 

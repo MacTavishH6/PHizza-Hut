@@ -1,6 +1,6 @@
 @extends('masterpage/masterpage')
 
-@section('title','{{Auth::user()->Username}} Transaction')
+@section('title','View All Transaction')
 
 @section('css_placeholder')
     <style>
@@ -22,7 +22,17 @@
                     @if ($index % 2 == 1)
                     <a href="/history/detail/{{$transaction->id}}">
                         <div class="row ganjil mx-auto px-4 py-3 border rounded">
-                            <label class="labelTran text-white">Transaction at {{$transaction->TransactionDate}}</label>
+                            <div class="col d-flex flex-column">
+                                <div class="row">
+                                    <label class="labelTran text-white p-0 m-0">Transaction at {{$transaction->TransactionDate}}</label>
+                                </div>
+                                <div class="row">
+                                    <label class="labelTran text-white p-0 m-0">User ID: {{$transaction->UserID}}</label>
+                                </div>
+                                <div class="row">
+                                    <label class="labelTran text-white p-0 m-0">Username: {{$transaction->User->Username}}</label>
+                                </div>
+                            </div>
                         </div>
                     </a>
                     @else

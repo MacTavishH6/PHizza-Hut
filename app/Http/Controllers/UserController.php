@@ -24,6 +24,14 @@ class UserController extends Controller
         return $validated;
     }
 
+    public function validateLoginRequest($request){
+        $validated = Validator::make($request->all(),[
+            'email'=>'required|email',
+            'password'=>'required|string|min:6',
+        ]);
+
+        return $validated;
+    }
 
     public function GetListUserDetail(){
 
@@ -39,12 +47,12 @@ class UserController extends Controller
             Users::insert(array(
                 'Username' => $request->username,
                 'Email' => $request->email,
-                'Password' => $request->password,
+                'Password' => bcrypt($request->password),
                 'Address' => $request->address,
                 'PhoneNumber' => $request->phoneNumber,
                 'Gender' => $request->gender,
                 'isAdmin' => false,
-                'AuditUsername' => "",
+                'AuditUsername' => "WebRegistration",
                 'AuditTime' => Carbon::now()->toDateTimeString(),
                 'AuditActivity' => "I"
             ));
@@ -57,11 +65,20 @@ class UserController extends Controller
     }
 
     public function Login(Request $request){
-
+        $validated = $this->validateLoginRequest($request);
+        if ($validated->fails()) return redirect()->back()->withInput($request->all())->withErrors($validated->errors());
         $credential = $request->only('email','password');
-        Auth::attempt($credential);
-        
-        return redirect('/');
+        $isRemember = false;
+        if($request->rememberMe != null) $isRemember = true;
+        if(Auth::attempt($credential, $isRemember)){
+            if($isRemember == true){
+                $minute = 30;
+                $rememberToken = Auth::getRecallerName();
+                Cookie::queue($rememberToken,Cookie::get($rememberToken),$minute);
+            }
+            return redirect('/');
+        }
+        else return redirect('/login')->with('failed',"Invalid email or password");
     }
 
     public function LogOut(){

@@ -1,5 +1,7 @@
 @extends('masterpage/masterpage')
 
+@section('title','PHizza Hut | Register')
+
 @section('content_placeholder')
 <div class="container" style=";width: 50%;margin-top: 50px">
     <div class="content" style="height: 100%;margin-top: 10px ">
