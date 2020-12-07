@@ -15,9 +15,9 @@ class CreateTrTransactionHeaderTable extends Migration
     {
         Schema::create('TrTransactionHeader', function (Blueprint $table) {
             $table->id();
-            $table->string('CustomerID');
-            $table->string('TotalPrize');
-            $table->Date('TransactionDate');
+            $table->string('UserID');
+            $table->string('TotalPrice');
+            $table->datetime('TransactionDate');
             $table->string('AuditUsername');
             $table->datetime('AuditTime');
             $table->char('AuditActivity');

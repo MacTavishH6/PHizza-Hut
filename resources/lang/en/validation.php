@@ -146,6 +146,13 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'name'=>'Pizza Name',
+        'price'=>'Pizza Price',
+        'desc'=>'Pizza Description',
+        'photo'=>'Pizza Photo',
+        'email' => 'Email',
+        'password' => 'Password',
+    ],
 
 ];

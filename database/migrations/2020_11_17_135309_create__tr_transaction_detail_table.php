@@ -14,8 +14,9 @@ class CreateTrTransactionDetailTable extends Migration
     public function up()
     {
         Schema::create('TrTransactionDetail', function (Blueprint $table) {
-            $table->string("TransactionID");
-            $table->string("PizzaID");
+            $table->increments("TransactionID");
+            $table->integer("HTransactionID");
+            $table->integer("PizzaID");
             $table->double("SubTotal");
             $table->integer("Qty");
             $table->string('AuditUsername');
