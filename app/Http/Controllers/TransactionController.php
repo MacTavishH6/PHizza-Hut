@@ -73,9 +73,9 @@ class TransactionController extends Controller
         }
        TransactionHeader::where('id',$CurrentHeaderTransaction->id)->update(array('TotalPrice'=>$TotalPrice));
 
-        $url = "../ViewChart/";
-        $url .=$UserID;
-        return redirect($url);
+        // $url = "../ViewChart/";
+        // $url .=$UserID;
+        return redirect('/')->with('pizzaDeleted', "Transaction success!");
     }
 
     public function AddCart($UserID,Request $request){
@@ -109,4 +109,17 @@ class TransactionController extends Controller
         $url .=$UserID;
         return redirect($url);
     }
+
+    public function viewTransaction($UserID){
+        $transactions = TransactionHeader::where('UserID',$UserID)->get();
+
+        return view('master/Transaction/History',['transactions'=>$transactions]);
+    }
+
+    public function viewTransactionDetail($TranID){
+        $transactions = TransactionDetail::where([['HTransactionID',$TranID],['AuditActivity','<>','D']])->get();
+
+        return view('master/Transaction/Detail',['transactions'=>$transactions]);
+    }
 }
+
