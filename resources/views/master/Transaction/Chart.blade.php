@@ -8,11 +8,11 @@
         <div class="col px-0 pizza d-flex flex-column border bg-white" style="margin-bottom: 20px">
         <div class="row">
             <div class="col-sm-4">
-                <img width="280px" height="280px" src="../storage/img/PHizzaHutLogo.jpg" style="padding: 50px 10px 10px 40px">
+                <img width="280px" height="280px" src="{{asset('storage/img/'.$Data->Pizza->ImagePath)}}" style="padding: 50px 10px 10px 40px">
             </div>
             <div class="col-sm-8">
             <h2 style="margin-top:30px ">{{$Data->Pizza->PizzaName}}</h2>
-            <p>{{$Data->Pizza->Price}}</p>
+            <p>Rp. {{$Data->Pizza->Price}}</p>
             <p>Quantity : {{$Data->PizzaQty}}</p>
             <form action="../UpdateChartQty/{{$Data->UserID}}/{{$Data->CartID}}" method="POST">
                 {{ csrf_field() }}
