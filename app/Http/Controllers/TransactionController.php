@@ -8,9 +8,12 @@ use App\TransactionHeader;
 use App\TransactionDetail;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Validator;
 
 class TransactionController extends Controller
 {
+
+
     public function GetChartList($UserID){
         $ChartList = PizzaCart::where('UserID',$UserID)->where('AuditActivity','<>','D')->get();
         return view('master/Transaction/Chart',['ChartList'=>$ChartList]);
@@ -41,6 +44,44 @@ class TransactionController extends Controller
         return redirect($url);
     }
 
+
+    public function AddCart($UserID,Request $request){
+        // $Validate = Validator::make($request->all(),[
+        //     'AddCartPizzaQty'=> 'required|numeric|min:1'
+        // ]);
+        // if ($validate->fails()) return redirect()->back()->withInput($request->all())->withErrors($validate->errors());
+        $PizzaID = $request->HfPizzaID;
+        $PizzaQty = $request->AddCartPizzaQty;
+        $Pizza = Pizza::where('id',$PizzaID)->first(); 
+        $User = Users::where('UserID',$UserID)->first();
+        $Exists = PizzaCart::where('PizzaID',$PizzaID)->where('UserID',$UserID)->where('AuditActivity','<>','D')->first();
+        if($Exists != null){
+            $NewQty = $Exists->PizzaQty + $PizzaQty;
+            $Price = $Pizza->Price * $NewQty; 
+            PizzaCart::where('CartID',$Exists->CartID)->update(array('PizzaQty'=>$NewQty));
+            PizzaCart::where('CartID',$Exists->CartID)->update(array('TotalPrice'=>$Price));
+            PizzaCart::where('CartID',$Exists->CartID)->update(array('AuditUsername'=>$User->Username));
+            PizzaCart::where('CartID',$Exists->CartID)->update(array('AuditTime'=>Carbon::now()->toDateTimeString()));
+            PizzaCart::where('CartID',$Exists->CartID)->update(array('AuditActivity'=>'U'));
+        }
+        else{
+            $Price = $Pizza->Price * $PizzaQty;
+            PizzaCart::insert(array(
+                'UserID'=>$UserID,
+                'PizzaID' =>$PizzaID,
+                'PizzaQty' =>$PizzaQty,
+                'TotalPrice'=>$Price,
+                'AuditUsername'=>$User->Username,
+                'AuditTime' => Carbon::now()->toDateTimeString(),
+                'AuditActivity' => 'I'
+            ));
+        }
+        $url = "../ViewChart/";
+        $url .=$UserID;
+        return redirect($url);
+    }
+
+    
     public function SaveTransactionCheckOut($UserID){
         $User = Users::where('UserID',$UserID)->first();
 
@@ -78,36 +119,10 @@ class TransactionController extends Controller
         return redirect('/')->with('pizzaDeleted', "Transaction success!");
     }
 
-    public function AddCart($UserID,Request $request){
-        $PizzaID = $request->HfPizzaID;
-        $PizzaQty = $request->AddCartPizzaQty;
-        $Pizza = Pizza::where('id',$PizzaID)->first(); 
-        $User = Users::where('UserID',$UserID)->first();
-        $Exists = PizzaCart::where('PizzaID',$PizzaID)->where('UserID',$UserID)->where('AuditActivity','<>','D')->first();
-        if($Exists != null){
-            $NewQty = $Exists->PizzaQty + $PizzaQty;
-            $Price = $Pizza->Price * $NewQty; 
-            PizzaCart::where('CartID',$Exists->CartID)->update(array('PizzaQty'=>$NewQty));
-            PizzaCart::where('CartID',$Exists->CartID)->update(array('TotalPrice'=>$Price));
-            PizzaCart::where('CartID',$Exists->CartID)->update(array('AuditUsername'=>$User->Username));
-            PizzaCart::where('CartID',$Exists->CartID)->update(array('AuditTime'=>Carbon::now()->toDateTimeString()));
-            PizzaCart::where('CartID',$Exists->CartID)->update(array('AuditActivity'=>'U'));
-        }
-        else{
-            $Price = $Pizza->Price * $PizzaQty;
-            PizzaCart::insert(array(
-                'UserID'=>$UserID,
-                'PizzaID' =>$PizzaID,
-                'PizzaQty' =>$PizzaQty,
-                'TotalPrice'=>$Price,
-                'AuditUsername'=>$User->Username,
-                'AuditTime' => Carbon::now()->toDateTimeString(),
-                'AuditActivity' => 'I'
-            ));
-        }
-        $url = "../ViewChart/";
-        $url .=$UserID;
-        return redirect($url);
+    public function GetTransactionHistory($UserID){
+        $TransactionList = TransactionHeader::where('UserID',$UserID)->get();
+
+        return View('master/Transaction/TransactionHistory',['TransactionList'=>$TransactionList]);
     }
 
     public function viewTransaction($UserID){

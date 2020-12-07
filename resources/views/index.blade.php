@@ -37,7 +37,7 @@
             @if(session('pizzaDeleted'))
                 <div class="alert alert-success mt-2" role="alert">
                     <button type="button" class="close" data-dismiss="alert">×</button>
-                    Pizza deleted
+                    {{session('pizzaDeleted')}}
                 </div>
             @endif
             @if ($pizzas->count() < 1)

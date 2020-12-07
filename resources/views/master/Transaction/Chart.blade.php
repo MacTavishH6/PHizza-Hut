@@ -3,7 +3,9 @@
 @section('content_placeholder')
 <div class="container" style=";width: 50%;margin-top: 50px">
     <div class="content" style="height: 100%;margin-top: 10px ">
-        
+        @if(count($ChartList) < 1 )
+          <h1 class="text-center">Chart is empty, please order!!</h1>
+        @endif
         @foreach ($ChartList as $Data)
         <div class="col px-0 pizza d-flex flex-column border bg-white" style="margin-bottom: 20px">
         <div class="row">

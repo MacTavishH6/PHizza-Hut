@@ -20,13 +20,13 @@
                     @if ($index % 2 == 1)
                     <a href="/history/detail/{{$transaction->id}}">
                         <div class="row ganjil mx-auto px-4 py-3 border rounded">
-                            <label class="labelTran">Transaction at {{$transaction->TransactionDate}}</label>
+                            <label class="labelTran text-white">Transaction at {{$transaction->TransactionDate}}</label>
                         </div>
                     </a>
                     @else
                     <a href="/history/detail/{{$transaction->id}}">
                         <div class="row mx-auto px-4 py-3 bg-white border rounded">
-                            <label class="labelTran">Transaction at {{$transaction->TransactionDate}}</label>
+                            <label class="labelTran text-dark">Transaction at {{$transaction->TransactionDate}}</label>
                         </div>
                     </a>
                     @endif
