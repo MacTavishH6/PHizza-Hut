@@ -105,7 +105,7 @@ class PizzaController extends Controller
     }
 
     public function pizzaUpdateView($id){
-        $pizza = Pizza::find($id)->where('AuditActivity','<>','D');
+        $pizza = Pizza::where([['id',$id],['AuditActivity','<>','D']])->first();
 
         return view('master/Pizza/UpdatePizza',['pizza'=>$pizza]);
     }

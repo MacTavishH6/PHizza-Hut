@@ -72,7 +72,7 @@ class UserController extends Controller
         if($request->rememberMe != null) $isRemember = true;
         if(Auth::attempt($credential, $isRemember)){
             if($isRemember == true){
-                $minute = 30;
+                $minute = 120;
                 $rememberToken = Auth::getRecallerName();
                 Cookie::queue($rememberToken,Cookie::get($rememberToken),$minute);
             }

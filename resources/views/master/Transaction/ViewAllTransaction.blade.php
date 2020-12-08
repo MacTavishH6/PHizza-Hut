@@ -1,6 +1,6 @@
 @extends('masterpage/masterpage')
 
-@section('title','View All Transaction')
+@section('title','PHizza Hut | View All Transaction')
 
 @section('css_placeholder')
     <style>
@@ -38,8 +38,17 @@
                     @else
                     <a href="/history/detail/{{$transaction->id}}">
                         <div class="row mx-auto px-4 py-3 bg-white border rounded">
-                            <label class="labelTran text-dark">Transaction at {{$transaction->TransactionDate}}</label>
-                        </div>
+                            <div class="col d-flex flex-column">
+                                <div class="row">
+                                    <label class="labelTran text-dark p-0 m-0">Transaction at {{$transaction->TransactionDate}}</label>
+                                </div>
+                                <div class="row">
+                                    <label class="labelTran text-dark p-0 m-0">User ID: {{$transaction->UserID}}</label>
+                                </div>
+                                <div class="row">
+                                    <label class="labelTran text-dark p-0 m-0">Username: {{$transaction->User->Username}}</label>
+                                </div>
+                            </div>
                     </a>
                     @endif
                     <?php ++$index ?>

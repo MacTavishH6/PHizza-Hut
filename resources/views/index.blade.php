@@ -1,6 +1,11 @@
 @extends('masterpage/masterpage')
+<?php 
+    $username = '';
+    if(Auth::check()) 
+        $username = ' '.Auth::user()->Username 
 
-@section('title','Phizza Hut | Welcome!')
+?>
+@section('title','Phizza Hut | Welcome'. $username .'!')
 
 @section('css_placeholder')
     <style>

@@ -1,6 +1,6 @@
 @extends('masterpage/masterpage')
 
-@section('title','{{Auth::user()->Username}} Transaction')
+@section('title','PHizza Hut | '.$transactions->first()->TransactionHeader->User->Username.' Transaction')
 
 @section('content_placeholder')
 <div class="container mt-4 bg-white">
