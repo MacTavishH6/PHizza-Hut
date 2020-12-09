@@ -49,6 +49,7 @@
                                     <label class="labelTran text-dark p-0 m-0">Username: {{$transaction->User->Username}}</label>
                                 </div>
                             </div>
+                        </div>
                     </a>
                     @endif
                     <?php ++$index ?>
