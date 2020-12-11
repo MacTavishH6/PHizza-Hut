@@ -10,6 +10,7 @@
 
     <!-- CSS for masterpage goes here -->
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css')}}">
+    <link rel="icon" type="image/png" href="{{asset('storage/img/PHizzaHutLogo.jpg')}}"/>
 
     <!-- JS for masterpage goes here -->
     <script src="{{asset('js/jquery-3.5.1.min.js')}}"></script>

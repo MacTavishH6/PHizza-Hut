@@ -57,8 +57,8 @@
                 </div>
                 <br>
                 <div class="row mb-3">
-                    <div class="col" style="margin-left: 250px">
-                        <input type="submit" name="submit" class="btn btn-primary" value="Register">
+                    <div class="col text-center" >
+                        <input type="submit" name="submit" class="btn btn-primary px-5" value="Register">
                     </div>
                 </div>
 
