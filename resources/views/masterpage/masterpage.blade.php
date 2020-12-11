@@ -117,6 +117,9 @@
                         <ul class="dropdown-menu dropdown-menu-right mt-1" aria-labelledby="navbarDropdownMenuLink">
                             <li class="dropdown-item">
                                 @if (Auth::check())
+                                    @if(Auth::user()->isAdmin != 0)
+                                        <a class="nav-link" href="/add">Add Pizza</a>
+                                    @endif
                                     <a class="nav-link" href="/logout">Logout</a>
                                 @endif
                                 

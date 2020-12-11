@@ -1,6 +1,6 @@
 @extends('masterpage/masterpage')
 
-@section('title','{{Auth::user()->Username}} Cart')
+@section('title','PHizza Hut | '.Auth::user()->Username.' Cart')
 
 @section('content_placeholder')
 <div class="container" style=";width: 75%;margin-top: 50px">
@@ -22,7 +22,8 @@
                 {{ csrf_field() }}
                 <span>Quantity: </span>
                 <input style="margin-left: 200px;width: 300px" id="UpdateQty" type="number" name="UpdateQty" value={{$Data->PizzaQty}}>
-                <br><br>
+                <p>SubTotal: Rp. {{$Data->TotalPrice}}</p>
+                <br>
                 <button type="submit" class="btn btn-primary" style="margin-bottom: 10px;width: 160px;color: white">Update Quantity</button>
                 <br>
             </form>
@@ -56,6 +57,14 @@
         @endforeach
         @if(count($ChartList) > 0)
         <div style="margin-left: 520px">
+        <?php $total = 0 ?>
+        @for ($i = 0; $i < count($ChartList); $i++)
+            <?php $total += $ChartList[$i]->TotalPrice ?>
+        @endfor
+        <h2>Total Price: Rp. 
+          {{$total}}
+        </h2>
+        
         <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#CheckOutModal" style="margin-bottom: 40px;width: 160px;color: white;">Checkout</button>
         {{-- Modal Start Here --}}
         <div class="modal" id="CheckOutModal" tabindex="-1" role="dialog">

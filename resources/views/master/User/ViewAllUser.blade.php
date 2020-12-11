@@ -1,6 +1,6 @@
 @extends('masterpage/masterpage')
 
-@section('title','View All User')
+@section('title','PHizza Hut | View All User')
 
 @section('content_placeholder')
     <div class="container" style=";width: 50%;margin-top: 50px">

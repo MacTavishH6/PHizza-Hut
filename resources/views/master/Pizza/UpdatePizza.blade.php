@@ -1,6 +1,6 @@
 @extends('masterpage/masterpage')
 
-@section('title','Update {{$pizza->PizzaName}}')
+@section('title','PHizza Hut | Update '.$pizza->PizzaName)
 
 @section('content_placeholder')
     <div class="container bg-white px-5 mt-4">

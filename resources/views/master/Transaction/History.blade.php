@@ -1,6 +1,6 @@
 @extends('masterpage/masterpage')
 
-@section('title','{{Auth::user()->Username}} Transaction')
+@section('title', 'PHizza Hut | '.Auth::user()->Username.' Transactions')
 
 @section('css_placeholder')
     <style>

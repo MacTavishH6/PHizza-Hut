@@ -1,6 +1,11 @@
 @extends('masterpage/masterpage')
+<?php 
+    $username = '';
+    if(Auth::check()) 
+        $username = ' '.Auth::user()->Username 
 
-@section('title','Phizza Hut | Welcome!')
+?>
+@section('title','Phizza Hut | Welcome'. $username .'!')
 
 @section('css_placeholder')
     <style>
@@ -59,7 +64,7 @@
                                 <div class="customer_button mx-auto mb-3">
                                     @if (Auth::check() && (Auth::user()->isAdmin != 1 && Auth::user()->isAdmin != 2))
                                         <button class="btn btn-outline-info" onclick="window.location.href = 'detail/{{Auth::user()->UserID}}/{{$pizza->id}}'">View Detail</button>
-                                    @elseif(!Auth::check())
+                                    @elseif(!Auth::check() || (Auth::user()->isAdmin == 1 || Auth::user()->isAdmin == 2))
                                     {{-- {{Auth::check()}} --}}
                                         <button class="btn btn-outline-info" onclick="window.location.href = 'detail/{{$pizza->id}}'">View Detail</button>
                                     @endif

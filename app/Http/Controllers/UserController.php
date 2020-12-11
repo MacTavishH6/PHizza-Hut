@@ -10,6 +10,7 @@ use Auth;
 class UserController extends Controller
 {
 
+    //this method to validate the register request from user
     public function validateRequest($request){
         $validated = Validator::make($request->all(),[
             'username'=>'required|string|min:5',
@@ -33,12 +34,14 @@ class UserController extends Controller
         return $validated;
     }
 
+    // this method to get list user 
     public function GetListUserDetail(){
 
         $UsersDetail = Users::all();
         return view('master/User/ViewAllUser',['UsersDetail'=>$UsersDetail]);
     }
 
+    //this method to save the registration information form user to db
     public function Register(Request $request){
     $validated = $this->validateRequest($request);
         if ($validated->fails()) return redirect()->back()->withInput($request->all())->withErrors($validated->errors());
@@ -72,7 +75,7 @@ class UserController extends Controller
         if($request->rememberMe != null) $isRemember = true;
         if(Auth::attempt($credential, $isRemember)){
             if($isRemember == true){
-                $minute = 30;
+                $minute = 120;
                 $rememberToken = Auth::getRecallerName();
                 Cookie::queue($rememberToken,Cookie::get($rememberToken),$minute);
             }

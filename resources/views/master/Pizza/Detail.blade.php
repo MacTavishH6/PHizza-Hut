@@ -1,6 +1,6 @@
 @extends('masterpage/masterpage')
 
-@section('title','{{$pizza->PizzaName}} Detail')
+@section('title','PHizza Hut | '.$pizza->PizzaName)
 
 @section('content_placeholder')
     <div class="container mt-4 bg-white">
@@ -13,6 +13,18 @@
                     <h2>{{$pizza->PizzaName}}</h2>
                     <p class="text-justify">{{$pizza->Description}}</p>
                     <span>Rp. {{$pizza->Price}}</span>
+
+                    {{-- Validation if the user input quanityt less then 1 --}}
+                    @if ($errors->any())
+                         <div class="alert alert-danger" style="margin-top: 20px">
+                            <ul>
+                            @foreach ($errors->all() as $error)
+                               <li>{{ $error }}</li>
+                            @endforeach
+                             </ul>
+                           </div>
+                     @endif
+
                     @if (Auth::check() && Auth::user()->isAdmin == 0)
                         <form action="/AddCart/{{$UserID}}" method="POST"  enctype="multipart/form-data">
                             {{ csrf_field() }}
@@ -22,7 +34,7 @@
                                 </div>
                                 <div class="col">
                                 <input name="HfPizzaID" id="HfPizzaID" type="hidden" value="{{$pizza->id}}">
-                                <input type="number" name="AddCartPizzaQty" id="AddCartPizzaQty">
+                                <input type="number" name="Quantity" id="Quantity">
                                     
                                 </div>
                             </div>
