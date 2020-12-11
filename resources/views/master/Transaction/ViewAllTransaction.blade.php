@@ -15,6 +15,9 @@
 
 @section('content_placeholder')
     <div class="container">
+        @if(count($transactions) < 1 )
+          <h1 class="text-center mt-3">No Transaction</h1>
+        @endif
         <?php $index = 1 ?>
         @foreach ($transactions as $transaction)
             <div class="row mx-auto w-50 <?php if($index == 1) echo "mt-5" ?> ">
