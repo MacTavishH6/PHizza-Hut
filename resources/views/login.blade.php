@@ -51,9 +51,8 @@
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <div class="col text-center" style="margin-left: 120px">
-                        <input type="submit" name="submit" class="btn btn-primary" value="Login">
-                        <a href="#">Forgot Your Password ?</a>
+                    <div class="col text-center">
+                        <input type="submit" name="submit" class="btn btn-primary px-5" value="Login">
                     </div>
                 </div>
             </form>
